@@ -9,8 +9,9 @@ template <typename T>
 void print_vector(const std::vector<T>& v, const std::string& s);
 
 int main() {
-  std::vector<int> v0{1, 2, 4};
-  std::vector<int> v1(4, 4);
+  //vectors are in the heap
+  std::vector<int> v0{1, 2, 4};//3 elements: 1, 2, 4
+  std::vector<int> v1(4, 4);//four elements, all equals to four
 
   print_vector(v0, "v0");
   print_vector(v1, "v1");
@@ -29,10 +30,10 @@ int main() {
 
   std::cout << v1[3] << " " << v1[78] << std::endl;        // no bounds checking
   std::cout << v1.at(3) << " " << v1.at(78) << std::endl;  // bounds checking
-
+//no need to free the memory
   return 0;
 }
-
+//vectors can be passed by reference
 template <typename T>
 void print_vector(const std::vector<T>& v, const std::string& s) {
   std::cout << s << ": ";

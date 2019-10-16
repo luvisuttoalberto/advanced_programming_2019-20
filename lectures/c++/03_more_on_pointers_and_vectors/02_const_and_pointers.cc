@@ -2,7 +2,7 @@
 
 template <typename T>
 void print_sentinel(const T* a, const std::size_t l);
-
+// const helps the compiler to optimize things
 int main() {
   int a{8}, b{7};
   int* pi{&a};
@@ -10,6 +10,7 @@ int main() {
   const int* pc{&a};
   // *pc = 7; 	// error
   a = 15;  // I can obviously change a
+  //also I can do pc = &b
 
   int* const cp{&a};
   a = b;

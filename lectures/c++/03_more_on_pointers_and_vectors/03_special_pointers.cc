@@ -11,11 +11,11 @@ int main() {
 
   char** ppc;
 
-  int* ap[7];
+  int* ap[7];// is an array of 7 pointers to integers
 
-  void* pv{pi};
+  void* pv{pi}; // you can cast int* to void *, not the way around, unless you use static_cast (see after)
   // *pv; // we cannot dereference void*
-  // ++pv; // we cannot increment. Why?
+  // ++pv; // we cannot increment. Why? Because we don't know the size of every element!
   int* pi2{static_cast<int*>(pv)};
 
   pv = ppc;
@@ -29,14 +29,14 @@ int main() {
   int** bbb;
   bbb = ap;
   pv = nullptr;
-  pi2 = 0;  // older codes. gets the nullptr
+  pi2 = 0;  // older codes. gets the nullptr (don't do this)
 
   // pi = NULL; // please don't do this
 
   double* da{new double[5]{}};
   delete[] da;  // dangling pointer
-  da = nullptr;
-
+  da = nullptr; // do this do you can't print something in an address which is no more active
+  //the sequent two are equal
   if (pi != nullptr)
     std::cout << "pi is not nullptr and I can dereference it " << *pi
               << std::endl;
@@ -62,20 +62,23 @@ int main() {
   else
     std::cout << "different\n";
 
-  int (*fp)(const char*);
+  int (*fp)(const char*); // here i am defining a pointer to function that takes pointers to char and returns integers
   fp = func1;
 
   fp("hello");
+  //the sequent syntax is equal but preferred, more clear
 
   fp = &func2;
   fp("world");
 
-  // fp = func3; // error: wrong signature
+  // fp = func3; // error: wrong signature (returns void)
   auto xx = func3;
 
   xx("auto");
 
   decltype(&func3) x = func3;
+  //similar to auto, you initialize a variable of the type of func3
+  //we could also have written: void (*x)(const char*) = func3
   x("decltype");
 
   return 0;
