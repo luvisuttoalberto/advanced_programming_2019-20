@@ -1,9 +1,9 @@
 #include <iostream>
-
+//this is like namespace std{...}
 namespace choose_a_name {
 
   int variable;
-
+  //this is a nested namespace
   namespace nested {
 
     void hello1();
@@ -22,7 +22,7 @@ int main() {
   choose_a_name::nested::hello3();
   return 0;
 }
-
+//you can also define the function outside of the namespace; you only need to use one of the following 3:
 void choose_a_name::nested::hello1() {
   std::cout << "hello1 from nested\n"
             << "variable is " << choose_a_name::variable << std::endl;
@@ -36,7 +36,7 @@ namespace choose_a_name {
     }
   }  // namespace nested
 }  // namespace choose_a_name
-
+//the following is valid from now on
 using namespace choose_a_name;
 
 void nested::hello3() {

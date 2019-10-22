@@ -58,12 +58,5 @@ int main(int argc, char * argv[]){
 	std::cout << "the mean is " << mean_t << std::endl;
 	double median_t = median(temperatures);
 	std::cout << "the median is " << median_t << std::endl;
-	
-
-
-
-
-
-
 	return 0;
 }

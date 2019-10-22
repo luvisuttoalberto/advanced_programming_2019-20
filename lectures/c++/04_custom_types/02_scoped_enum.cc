@@ -1,5 +1,6 @@
 #include <iostream>
-
+// the following define a scoped enum; the difference is in the definition (inside the switch): 
+// we have to use :: (the scope resolution operator)
 enum class color { red, yellow, green };
 // enum class color{red=0, yellow=1, green=2}; // equivalent
 

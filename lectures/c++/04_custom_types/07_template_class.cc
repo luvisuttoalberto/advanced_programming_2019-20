@@ -7,12 +7,15 @@ class Vector {
   std::size_t _size;
 
  public:
+  //the constructor put the address of a new allocated array of size size and type num inside of elem and the size in _size
   Vector(const std::size_t size) : elem{new num[size]}, _size{size} {}
 
   // automatically release the acquired memory
   ~Vector() { delete[] elem; }
 
   // try to remove the const and recompile
+  //this const means that the state of my object [what is the object?] will not be changed if i run this function
+
   std::size_t size() const { return _size; }
 
   num& operator[](const std::size_t i) { return elem[i]; }
@@ -20,7 +23,7 @@ class Vector {
   // try to comment this line and recompile
   const num& operator[](const std::size_t i) const { return elem[i]; }
 };
-
+//the const here allows you to call only a function who has const before {}; This is because you are using your own custom type
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
   for (auto i = 0u; i < v.size(); ++i)

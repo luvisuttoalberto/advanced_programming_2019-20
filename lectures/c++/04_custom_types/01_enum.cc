@@ -1,5 +1,8 @@
 #include <iostream>
 
+//N.B.: use const expressions instead of #define; in this way you can announce the type of variable. (Conversion number example)
+//Also, they are both "known" at compile time so there is no computational difference
+
 enum color { red, yellow, green };
 // enum color{red=0, yellow=1, green=2}; // equivalent
 
@@ -31,7 +34,7 @@ int main() {
 
   // dwim(2); // error
   dwim(color(2));  // works but why you may want to write this?
-
+  //watchout: even if the following goes to the default option, doing this is dangerous
   dwim(color(6));  // ???
 
   return 0;
