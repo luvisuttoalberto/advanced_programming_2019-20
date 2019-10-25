@@ -3,7 +3,9 @@
 ## Class Date
 Implement a class `Date`. This class must meet the following requirements:
 - it has three **private** attributes to represent day, month and year
+[private because in this way it's not the user to decide if the date is meaningful; functions are public so that you can optimize them etc.]
 - use a scoped enum for month
+[So that you have to do Date d{1, month::march, 2019}, so you canalso give them in different order]
 - it has the following **public** functions:
 	- constructor that takes as arguments a day, a month and a year. (Forget about the validation for now)
 	- `day()` function that returns the day
