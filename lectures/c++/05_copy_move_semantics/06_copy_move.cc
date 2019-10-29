@@ -40,11 +40,21 @@ class Vector {
 
   /////////////////////////
   // move semantics
-
+  //of course not const value here inside, because we MOVE it; the copied one is left in a vague state:
+  //you can call the destructor on it
+  //The && here means it is an arg value: can only stay in the right size of an =
+  //ex: a = 3; 3 can only stay on the right
+  //the std::move(v._size) is just a copy
+  //the std::move(v.elem) is not a copy!! You need to tell that (usually the && guys) are going to die, so assign
+  //the NULL pointer to that one or release it, something like that
+  //MESSAGE: USE UNIQUE POINTERS: THEY ARE AS FAST AS RAW POINTERS BUT BETTER 
   // move ctor
   Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} {
     std::cout << "move ctor\n";
   }
+
+  //SWAP SOLUTION!! use move: in this way you don't have to copy, you just move it!!
+  //Of course you'll need a third opject anyway
 
   // Vector(Vector&& v) = default; // ok
 
@@ -53,7 +63,7 @@ class Vector {
     std::cout << "move assignment\n";
     _size = std::move(v._size);
     elem = std::move(v.elem);
-    return *this;
+    return *this; //this is a pointer to yourself; in this case to the istantiated object
   }
 
   // Vector& operator=(Vector&& v) = default; // ok
@@ -75,10 +85,11 @@ class Vector {
 };
 
 // copy ctor
-template <typename T>
+template <typename T> //note that you can access private member of this object (_size etc.)
 Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} {
   std::cout << "copy ctor\n";
-  std::copy(v.begin(), v.end(), begin());
+  std::copy(v.begin(), v.end(), begin()); // I could have done a for loop
+  //copy from v.begin() to v.end() starting from my begin()
 }
 
 // copy assignment
@@ -89,7 +100,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
   // we could decide that this operation is allowed if and only if
   // _size == v._size
   //
-
+  //reset() is a public function of the unique pointers
   elem.reset();              // first of all clean my memory
   auto tmp = v;              // then use copy ctor
   (*this) = std::move(tmp);  // finally move assignment
@@ -115,7 +126,7 @@ Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) {
     res[i] = lhs[i] + rhs[i];
 
   return res;
-}
+}//We need to return the result by value in this case!! So we put it in the heap and we return it
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
