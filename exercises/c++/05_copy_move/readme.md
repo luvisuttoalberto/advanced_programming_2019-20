@@ -12,6 +12,7 @@ class List {
   // insert a new node with the value v according to the method m
   // this method should be used to fill the list
   void insert(const value_type& v, const Insertion_method m);
+  //also try to implement the insert with void insert(const value_type&& v, const insertion_method m);
 
   // return the size of the list
   std::size_t size() const;

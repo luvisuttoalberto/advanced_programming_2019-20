@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <cmath>
 #include <iostream>
-
+//must be compiled with -DNDEBUG
 #include "ap_error.h"
 
 // implment a square root function that "deals with" negative
