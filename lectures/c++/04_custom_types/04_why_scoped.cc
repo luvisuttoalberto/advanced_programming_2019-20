@@ -7,12 +7,12 @@ using namespace std;
 //instead, if we use:
 //using std::cout;
 //using std::endl;
-//there is no problem for the compiler to understand what we are [refering] to
+//there is no problem for the compiler to understand what we are refering to them
 
 int main() {
   cout << nov << endl;
 
-  // if I uncomment the following, it gives an error because there is an ambiguous name: dec is also an std function
+  // if I uncomment the following, it gives an error because there is an ambiguous name: dec is also an std function. Pay attention!
   // cout << dec << endl;
   return 0;
 }

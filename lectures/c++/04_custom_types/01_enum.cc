@@ -1,12 +1,13 @@
 #include <iostream>
 
-//N.B.: use const expressions instead of #define; in this way you can announce the type of variable. (Conversion number example)
+//N.B.: use const expressions instead of #define; in this way you can announce the type of variable. 
+//Remember the example of the exercise on the conversion of numbers: no magic numbers!
 //Also, they are both "known" at compile time so there is no computational difference
 
 enum color { red, yellow, green };
-// enum color{red=0, yellow=1, green=2}; // equivalent
+// enum color{red=0, yellow=1, green=2}; // would have been equivalent
 
-void dwim(const color c) {
+void dwim(const color c) { // just to remember, dwim = do what i mean
   switch (c) {
     case red:
       std::cout << "option 1: red\n";

@@ -40,9 +40,9 @@ class Vector {
 
   /////////////////////////
   // move semantics
-  //of course not const value here inside, because we MOVE it; the copied one is left in a vague state:
+  //of course we can't put a const value inside this constructor, because we MOVE it; the copied one is left in a vague state:
   //you can call the destructor on it
-  //The && here means it is an arg value: can only stay in the right size of an =
+  //The && here means that it is an arg value: can only stay in the right size of an = sign
   //ex: a = 3; 3 can only stay on the right
   //the std::move(v._size) is just a copy
   //the std::move(v.elem) is not a copy!! You need to tell that (usually the && guys) are going to die, so assign
@@ -54,7 +54,7 @@ class Vector {
   }
 
   //SWAP SOLUTION!! use move: in this way you don't have to copy, you just move it!!
-  //Of course you'll need a third opject anyway
+  //Of course you'll need a third object anyway
 
   // Vector(Vector&& v) = default; // ok
 
@@ -103,7 +103,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
   //reset() is a public function of the unique pointers
   elem.reset();              // first of all clean my memory
   auto tmp = v;              // then use copy ctor
-  (*this) = std::move(tmp);  // finally move assignment
+  (*this) = std::move(tmp);  // finally move assignment (of the intermediate object)
 
   // or we do everything by hand..
   // and we can do not reset and call new again if the sizes are suitable

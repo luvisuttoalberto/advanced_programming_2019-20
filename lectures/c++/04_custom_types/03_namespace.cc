@@ -15,8 +15,9 @@ namespace choose_a_name {
 
 int main() {
   // variable = 42; // error
-  choose_a_name::variable = 42;
+  choose_a_name::variable = 42; //you can only access the variables of the namespace through the scope resolution operator
   // hello1(); // error
+  //It's the same for the functions
   choose_a_name::nested::hello1();
   choose_a_name::nested::hello2();
   choose_a_name::nested::hello3();

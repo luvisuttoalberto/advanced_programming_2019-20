@@ -6,7 +6,7 @@ struct X {
   char c = 'a';
   //in this way we are explicitely generating a default constructor
   //this may be useful when we want also to create a non default constructor, but we also want to have a default constructor
-  //otherwise it's not generated
+  //otherwise it's not generated automatically
   X() = default;  // in-class initializers are used by the constructors
 };
 

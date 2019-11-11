@@ -24,6 +24,8 @@ class Vector {
   const num& operator[](const std::size_t i) const { return elem[i]; }
 };
 //the const here allows you to call only a function who has const before {}; This is because you are using your own custom type
+//in this way you can guarantee to the compiler that the variable v won't be changed by the function that you are calling
+//(in this case the operator []). That's why we used the const before the {} in the operator [] overloading 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
   for (auto i = 0u; i < v.size(); ++i)

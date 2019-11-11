@@ -1,6 +1,6 @@
 #include <iostream>
 
-// we have a problem with the pointers here! 
+//we have a problem with the pointers here! 
 //When we initialize two Vector objects, we have two different pointers, pointing to the same memory address
 //what the compiler generates is a cheap copy: he copy by value, so the pointer of v2 has the same value 
 //of the pointer of v1; in this way when we change v1 we also change v2 and viceversa
@@ -19,7 +19,7 @@ class Vector {
       : elem{new T[length]{}}, _size{length} {}
 
   ~Vector() { delete[] elem; } // custom deconstructor
-//overloading of [] operator, with const and without const
+  //overloading of [] operator, with const and without const
   const T& operator[](const std::size_t& i) const { return elem[i]; }
   T& operator[](const std::size_t& i) { return elem[i]; }
 

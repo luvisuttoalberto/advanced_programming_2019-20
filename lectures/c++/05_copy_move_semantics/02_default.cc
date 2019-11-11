@@ -9,7 +9,7 @@ struct S {
 
 int main() {
   S s1;  // calls default constructor
-  //the string here is empty because string is a custom type, not a built in type; so the compiler will call the custom constructor
+  //the string here is empty because string is a custom type, not a built in type; so the compiler will call the custom constructor (see the output of the program)
 
 
   S s2{1, 2.3, "alberto"};  // if there are no custom ctors I can
@@ -19,7 +19,7 @@ int main() {
   // it is called aggregate initialization (see
   // https://en.cppreference.com/w/cpp/language/aggregate_initialization)
 
-  //This way of initializing is preferred for performance reasons [CHECK]; there is a difference only if we are 
+  //This way of initializing is preferred for performance reasons; there is a difference only if we are 
   //calling the default constructor
   S s3{};  // calls {} on each member: S s3 { {}, {}, {} };
 
