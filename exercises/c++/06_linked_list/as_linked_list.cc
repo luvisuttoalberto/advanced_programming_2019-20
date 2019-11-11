@@ -24,7 +24,7 @@ class List {
     node(T&& v, node* p) : next{p}, value{std::move(v)} {
       std::cout << "move ctor" << std::endl;
     }
-    node(const std::unique_ptr<node>& p) : value{p->value} {
+    explicit node(const std::unique_ptr<node>& p) : value{p->value} {
       if (p->next)
         next = std::make_unique<node>(p->next);
     }
@@ -50,7 +50,7 @@ class List {
   }
   // void push_front(T&& v);
 
-  node* tail();
+  node* tail() noexcept;
 
  public:
  	//with or without the l is the same here
@@ -78,7 +78,7 @@ class List {
 };
 
 template <class T>
-typename List<T>::node* List<T>::tail() {
+typename List<T>::node* List<T>::tail() noexcept {
 	//notice that this function will cause segmentation fault if we call it with an empty head
 	//but there is no problem because we call this function only after controlling 
 	//if there is already a head or not
