@@ -11,7 +11,7 @@ class List {
   	//here we can read all the data of the nesting class
   	//why a nested struct? the user doesn't need to know the details: 
   	//for example the implementation of a node so we put this in the 
-  	//private part of the List
+  	//private part of the class List
     std::unique_ptr<node> next;
     T value;
     //In the followings it makes no different to put before value or next; 
@@ -58,7 +58,7 @@ class List {
   List(List&& l) noexcept = default; // one feature of the move semantic is that they don't throw exceptions
   List& operator=(List&& l) noexcept = default;
   
-  //it would be a mistake to put noexcept here in the following, which uses thecopy semantic: 
+  //it would be a mistake to put noexcept here in the following, which uses the copy semantic: 
   //in general, noexcept is put in move semantic, not in copy semantic
   List(const List& l);
   List& operator=(const List& l);
@@ -120,7 +120,7 @@ void List<T>::push_back(OT&& v) {
   node* last = tail();
   // last->next.reset(new node{v, nullptr});
   last->next = std::make_unique<node>(std::forward<OT>(v), nullptr);
-  // if we wrote in c++14 style the following instead:
+  //if we wrote in c++14 style the following instead:
   //last->next = std::make_unique<node>(v, nullptr);
   //it wouldn't compile. Why? We will see it when we compile. 
   //Thanks to the dick (Edo questa è per te)
@@ -144,7 +144,7 @@ List<T>::List(const List& l) {
   //   insert(tmp->value,method::push_back);
   //   tmp=tmp->next.get();
   // }
-	//or
+  //or, using the explicit constructor defined in the class:
   head = std::make_unique<node>(l.head);
 }
 
