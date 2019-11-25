@@ -1,7 +1,16 @@
+//we are going to use a different approach, maybe easier: start from the end (main and functions) and then go up
+//Notice that in this way sometimes the comments will be a mess.
+
 #include <iostream>  // std::cout
 #include <memory>    // std::unique_ptr
 #include <utility>   // std::move
 #include <vector>
+
+//do we implement a class or a struct? and why?
+//a struct has default visibility as public, a class private. 
+//What should we keep secret?
+//for example, if you have some members that represents the state of the object, they must be private.
+//so this will be a class, to keep some things private.
 
 template <typename T>
 // requires:
@@ -58,12 +67,14 @@ class Vector {
   //   ++_size;
   // }
 
+  //try to implement the push back and then see what we need
+  //copy semantic
   void push_back(const T& x) {
     check_and_increase_capacity();
     elem[_size] = x;
-    ++_size;
+    ++_size; //so we need a variable for the size
   }
-
+  //move semantic
   void push_back(T&& x) {
     check_and_increase_capacity();
     elem[_size] = std::move(x);
@@ -115,8 +126,8 @@ std::ostream& operator<<(std::ostream& os, const Date& x) {
 }
 
 int main() {
-  // Vector<Date> v;
-  std::vector<Date> v;
+   Vector<Date> v;
+  //std::vector<Date> v;
   std::cout << v << std::endl;
   Date x{1, 2, 3};
   v.push_back(x);  // const T&
