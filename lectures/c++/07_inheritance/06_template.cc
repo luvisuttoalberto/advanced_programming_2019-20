@@ -7,7 +7,9 @@ struct Base {
 
 template <typename T>
 struct Derived : public Base<T> {
-  void bar() const { this->foo(); }
+  void bar() const { this->foo(); } //without this-> the code wouldn't compile; this is because the Base<T> is templated
+  //the compile will apply different rules when we insert this->; if you have problems accessing things that you know you can access, use it.
+  //We don't really know why
 };
 
 int main() {

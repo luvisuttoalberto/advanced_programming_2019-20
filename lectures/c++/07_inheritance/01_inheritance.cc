@@ -17,18 +17,24 @@ struct Animal {
   }
 };
 
-struct Dog : public Animal {
+struct Dog : public Animal { 
+  // in this way we say that a Dog IS an animal; before we said that a Dog HAS an animal
+  //here we are saying that the children [derived] struct can access all the public (note that in the struct public is the default) members 
+  //of the parent [super/base] struct (Animal in this case)
+  //in a struct we can also define data as protected:
+  //these objects of the struct are private, but can be accessed by the children
   void speak() const noexcept { std::cout << "Bau\n"; }
   Dog() noexcept = default;
-  Dog(const unsigned int a, const double d) : Animal{a, d} {}
+  Dog(const unsigned int a, const double d) : Animal{a, d} {} //here I'm calling the parent constructor (of Animal)
+  //NB: I'm not implementing the function info because the info() of Animal is enough, we don't have other object (infos)
 };
 
 struct Snake : public Animal {
   bool dangerous;
   Snake(const unsigned int a, const double w, const bool b)
-      : Animal{a, w}, dangerous{b} {}
+      : Animal{a, w}, dangerous{b} {} //note that we should construct the father first
   explicit Snake(const bool b) noexcept : Animal{}, dangerous{b} {}
-  void info() const noexcept {
+  void info() const noexcept {//instead, here we need to implement the function info. NB: THIS IS WRONG
     Animal::info();
     std::cout << "dangerous:\t" << (dangerous ? "true" : "false") << std::endl;
   }
@@ -36,14 +42,14 @@ struct Snake : public Animal {
 };
 
 // run-time (dynamic) polymorphism
-void print_animal(const Animal& a) noexcept {
+void print_animal(const Animal& a) noexcept { //you can pass children to a function that expect a parent
   std::cout << "through ref\n";
   a.info();
   a.speak();
 }
 
 // compile-time (static) polymorphism
-template <class T>
+template <class T> //NOTE THAT THIS IMPLIES THAT ALL THE ... must be known at compile time
 void print_animal_template(const T& a) noexcept {
   std::cout << "through template\n";
   a.info();
@@ -70,9 +76,9 @@ int main() {
 
     std::cout << std::endl;
 
-    Animal* p = new Snake{1, 2.3, false};
+    Animal* p = new Snake{1, 2.3, false};// a pointer to the base class can point to all of his children (and the children of the children)
     std::cout << "through pointer\n";
-    p->info();
+    p->info(); // Animal doesn't know that Snake has a dangerous variable!! It will print Unknown
     p->speak();
 
     delete p;

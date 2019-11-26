@@ -2,7 +2,9 @@
 
 struct Base {
   Base() { std::cout << "Base\n"; }
-  ~Base() { std::cout << "~Base\n"; }
+  ~Base() { std::cout << "~Base\n"; } //NB: THIS IS WRONG!! Memory leak
+  //virtual ~Base() { std::cout << "~Base\n"; }
+  //we should have done like this!! In this way we can call the destructor of the children destructor
 };
 
 struct Derived : public Base {
@@ -11,11 +13,11 @@ struct Derived : public Base {
 };
 
 int main() {
-  { Derived d; }
+  { Derived d; } //here i construct and destroy d
 
   std::cout << "\n\npointers\n";
   Base* p = new Derived;
-  delete p;
+  delete p; //with this I'm only calling the destructor of Base!!!
 
   return 0;
 }

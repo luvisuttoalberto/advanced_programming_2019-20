@@ -1,6 +1,6 @@
 #include <ap_error.h>
 #include <iostream>
-
+//we try to implement Animal as a class because it is a good thing to keep things private
 class Animal {
   unsigned int age;
   double weight;
@@ -56,7 +56,8 @@ class NonDangerousSnake : public Snake {
 
 struct Python : public NonDangerousSnake {};
 
-using Anaconda = DangerousSnake;
+using Anaconda = DangerousSnake; //using is like typedef but can be templated. (c++11). Use it, it's better
+//can also used as an alias
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";
@@ -72,8 +73,8 @@ int main() {
 
     std::cout << std::endl;
 
-    // Animal* p = new DangerousSnake{1, 2.3};
     Animal* p = new Anaconda{1, 2.3};
+    // Animal* p = new DangerousSnake{1, 2.3}; //this would be the same
 
     std::cout << "through pointer\n";
     p->info();
