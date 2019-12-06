@@ -15,9 +15,7 @@ class timer {
   void stop() {
     time_point t1 = Clock::now();
     std::cout << std::setw(15)
-              << std::chrono::duration_cast<std::chrono::duration<double>>(t1 -
-                                                                           t0)
-                     .count()
+              << std::chrono::duration_cast<std::chrono::duration<double>>(t1 - t0).count()
               << " [seconds]" << std::endl;
   }
 };

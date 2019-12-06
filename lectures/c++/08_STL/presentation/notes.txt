@@ -1,0 +1,11 @@
+21
+This create a future object: When you call get() you receive the output of the function; if it's not yet finished, you will wait for the result
+
+25
+a doubly-linked list also has a pointer to the previous object
+
+26
+C says the way I will order my stuff
+(less comparison as the default)
+
+
