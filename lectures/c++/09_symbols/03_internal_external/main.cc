@@ -1,10 +1,11 @@
 #include "constants.h"
 #include <iostream>
 
-double area_circle(const double);
+double area_circle(const double); //need to be written by hand because it's not in the header
 double golden_ratio(const double);
-extern int circle_counter;
-
+extern int circle_counter; //needed because I want to access the variable circle_counter
+//if we omit "extern" the compiler will complain because there are two different variables with the same name
+//in fact, there is only one copy of this variable
 int main() {
   std::cout << area_circle(1) << std::endl;
   std::cout << area_circle(2) << std::endl;
