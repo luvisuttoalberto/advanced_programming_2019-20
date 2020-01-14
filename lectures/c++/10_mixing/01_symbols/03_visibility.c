@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 static const int val1 = -5;
-const int val2 = 10;
+const int val2 = 10; //not equivalent to the previous line; not internal linkage
 static int val3 = -20;
 int val4 = -15;
 extern int errno;

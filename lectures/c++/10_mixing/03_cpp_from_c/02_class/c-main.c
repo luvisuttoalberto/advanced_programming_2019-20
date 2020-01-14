@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main() {
-  Foo_c f = create_foo(11);
+  Foo_c f = create_foo(11); //this function is a function that creates; constructors don't exists in c
   print_foo(f);
   set_a(f, 7);
   print_foo(f);
