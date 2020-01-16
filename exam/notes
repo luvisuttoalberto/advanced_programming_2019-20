@@ -255,3 +255,6 @@ and add in bst.hpp
 #include "bits_bst.hpp"
 in the end
 
+PUT IN THE RIGHT PLACE:
+When u dereference an iterator u get a reference (of pair (k, v)) 
+When u dereference a const iterator u get a const reference that can only be read
