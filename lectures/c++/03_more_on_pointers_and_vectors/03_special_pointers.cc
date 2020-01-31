@@ -13,7 +13,7 @@ int main() {
 
   int* ap[7];// is an array of 7 pointers to integers
 
-  void* pv{pi}; // you can cast int* to void *, not the way around, unless you use static_cast (see after)
+  void* pv{pi}; // you can cast int* to void *, not the other way around, unless you use static_cast (see after)
   // *pv; // we cannot dereference void*
   // ++pv; // we cannot increment. Why? Because we don't know the size of every element!
   int* pi2{static_cast<int*>(pv)};
@@ -35,7 +35,7 @@ int main() {
 
   double* da{new double[5]{}};
   delete[] da;  // dangling pointer
-  da = nullptr; // do this do you can't print something in an address which is no more active
+  da = nullptr; // do this so you can't print something in an address which is no more active
   //the sequent two are equal
   if (pi != nullptr)
     std::cout << "pi is not nullptr and I can dereference it " << *pi
@@ -71,7 +71,7 @@ int main() {
   fp = &func2;
   fp("world");
 
-  // fp = func3; // error: wrong signature (returns void)
+  // fp = func3; // error: wrong signature (func3 returns void, fp returns int)
   auto xx = func3;
 
   xx("auto");

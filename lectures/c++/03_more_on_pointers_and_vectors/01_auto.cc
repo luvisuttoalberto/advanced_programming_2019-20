@@ -1,6 +1,6 @@
 #include <cmath>
 #include <iostream>
-//here we verify that we have a sequent version of c++ 11, in which have been introduced the auto instead of template
+//here we verify that we have a version >= c++11, in order to have auto instead of template
 #if __cplusplus > 201103L
 
 template <class T>

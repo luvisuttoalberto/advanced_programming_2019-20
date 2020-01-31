@@ -29,7 +29,7 @@ int main() {
     std::cout << x << " ";
   std::cout << std::endl;
 
-//here we are using an alias, so we are also changing the values of a when we multiply x
+//here we are using an alias, so we are also changing the values of a when we change the value of x
   for (auto& x : a)
     x *= 10;
 

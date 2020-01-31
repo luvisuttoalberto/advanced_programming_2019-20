@@ -29,7 +29,7 @@ int main() {
 
   // int *pma {ma}; 		// error
   // int *pma[5] {ma};		// error
-  int* p{reinterpret_cast<int*>(ma)};
+  int* p{reinterpret_cast<int*>(ma)};//we need a single pointer, not an array of pointers like ma
   // int* p {&ma[0][0]};
 
   // print_ma(ma, 6, 5); 	// error
