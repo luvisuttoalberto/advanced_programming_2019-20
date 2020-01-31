@@ -2,15 +2,15 @@
 #include <string>
 
 //You can have many constructors, but only one destructor, which activates when the variable goes out of scope
-//example: never mix new and malloc: new calls the constructor, malloc don't; same with delete and free()
+//IMPORTANT: never mix new and malloc: new calls the constructor, malloc doesn't; same with delete and free()
 
 struct Foo {
+  //standard way to give a name to the variables: put the _ in front of the variable name (not mandatory)
   int _i;
   double _d;
   std::string _s;
-//constructor: same name of the class, doesn't have a return (neither a return type obv)
-  Foo(const int i, const double d,
-      const std::string& s);  // custom constructor, called with parameters; you can have many of these
+  //constructor: same name of the class, doesn't have a return (neither a return type obv)
+  Foo(const int i, const double d, const std::string& s);  // custom constructor, called with parameters; you can have many of these
 
   Foo();  // default constructor, can be called without parameters
 
@@ -18,26 +18,22 @@ struct Foo {
 };
 
 Foo::Foo(const int i, const double d, const std::string& s)//here we are writing in the "limbo";
-//the difference is: here the variables are not constructed yet; inside the {} the variable have already been constructed;
-//here you can and should construct the variables; inside you can't, and also you can't use the uniform initializers; 
+//the difference is: in the limbo the variables are not constructed yet; inside the {} (line 29) the variables have already been constructed;
+//here you can and should construct the variables; inside you can't, and also you can't use the uniform initializers {}; 
 //here you can't use =
     : _i{i},
       _d{d},
       _s{s}
-// _i, _d, _s must be initialized in the same order they have been declared
+// _i, _d, _s must be initialized in the same order they have been declared in the struct
 
 {
 
-  //here you can't do _i{i}; the object has already been constructed!
-  //instead, you can do _i = i;
-  //what is the better? The first, it's faster!! I construct the variable with the right value;
+  //inside here you can't do _i{i}; the object has already been constructed! Instead, you can do _i = i;
+  //which one is better? The first, it's faster!! I construct the variable with the right value;
   //In the = one you first construct the variable with no value, and then you copy the value inside of the variable; you do 2 operations!!
   std::cout << "custom ctor\n";
-  // if you want/need you can use _i, _d, _s and change their value
-  // with the usual notation +,-,=,*, call a function..
-  // don't use {} because this notation is reserved for the
-  // construction of the variables and at this point they have already
-  // been constructed
+  // if you want/need you can use _i, _d, _s and change their value with the usual notation +,-,=,*, or call a function..
+  // don't use {} because this notation is reserved for the construction of the variables and at this point they have already been constructed
 }
 
 Foo::Foo() {
@@ -54,8 +50,8 @@ Foo::~Foo() {
 std::ostream& operator<<(std::ostream& os, const Foo& f) {
   os << f._i << " " << f._d << " " << f._s << std::endl;
   return os;
-  //I return this so that I can continue; the same is done by the usual std::cout << "f0: ". the operator defined here receive in the first
-  //case (see after) std::cout << "f0: " and returns the modified output stream 
+  //I return this so that I can continue; the same is done by the usual std::cout << "f0: "
+  //the operator defined here receive in the first case (see after) std::cout << "f0: " and returns the modified output stream 
 }
 
 int main() {
@@ -63,7 +59,7 @@ int main() {
   Foo f1{};  // call default ctor
   // Foo f2(); // compiler error, because the compiler thinks that you are defining a function with return type Foo
 
-  Foo f2{8, 2.2, "hello"};
+  Foo f2{8, 2.2, "hello"}; //call custom constructor
   //Foo f2(8, 2.2, "hello");works too but DON'T USE THIS
   std::cout << "f0: " << f0 << "f1: " << f1 << "f2: " << f2 << std::endl;
 

@@ -1,11 +1,10 @@
 #include <iostream>
 
 //we have a problem with the pointers here! 
-//When we initialize two Vector objects, we have two different pointers, pointing to the same memory address
-//what the compiler generates is a cheap copy: he copy by value, so the pointer of v2 has the same value 
-//of the pointer of v1; in this way when we change v1 we also change v2 and viceversa
-//This is also the reason why, when we free the memory, the compiler comes up with an error;
-//we are freeing the same memory twice!! 
+//When we initialize two Vector objects we have two different pointers, pointing to the same memory address!
+//what the compiler generates is a cheap copy: he copy by value, so the pointer of v2 has the same value of the pointer of v1; 
+//in this way when we change v1 we also change v2 and viceversa
+//This is also the reason why, when we free the memory, the compiler comes up with an error: we are freeing the same memory twice!!
 
 template <typename T>
 class Vector {
@@ -18,14 +17,15 @@ class Vector {
   //new T[length]{} is like using calloc
       : elem{new T[length]{}}, _size{length} {}
 
-  ~Vector() { delete[] elem; } // custom deconstructor
+  ~Vector() { delete[] elem; } // custom destructor
+
   //overloading of [] operator, with const and without const
   const T& operator[](const std::size_t& i) const { return elem[i]; }
   T& operator[](const std::size_t& i) { return elem[i]; }
 
   std::size_t size() const { return _size; }
 
-  // range-for
+  // range-for, with and without const
   const T* begin() const { return elem; }
   T* begin() { return elem; }
 
@@ -40,11 +40,12 @@ class Vector {
   }
 }*/
 
+//is this what the compiler do when invoked for(auto x : v) ????
 /*{
   auto it = v1.begin();
   auto stop = v1.end();
   for(; it!=stop; ++it){
-    const auto x = *it
+    const auto x = *it;
   }
 }*/
 

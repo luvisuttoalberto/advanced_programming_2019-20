@@ -7,7 +7,7 @@ using namespace std;
 //instead, if we use:
 //using std::cout;
 //using std::endl;
-//there is no problem for the compiler to understand what we are refering to them
+//there is no problem for the compiler to understand what we are refering to
 
 int main() {
   cout << nov << endl;

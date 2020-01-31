@@ -27,6 +27,7 @@ int main() {
   color opt{color::red};
   // opt = 3;     // cannot assign int to enum
   // int a = opt; // and they don't implicitly convert to integers (another difference)
+  //they convert to integers if you do it explicitely with a static cast
   int a{static_cast<int>(opt)};  // cast
   // int a {int(opt)}; //
   // int a {(int)opt}; // C-style cast

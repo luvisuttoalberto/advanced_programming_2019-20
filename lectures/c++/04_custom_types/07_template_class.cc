@@ -7,7 +7,7 @@ class Vector {
   std::size_t _size;
 
  public:
-  //the constructor put the address of a new allocated array of size size and type num inside of elem and the size in _size
+  //the constructor puts the address of a new allocated array of size "size" and type "num" inside of elem and the size in _size
   Vector(const std::size_t size) : elem{new num[size]}, _size{size} {}
 
   // automatically release the acquired memory
@@ -22,10 +22,15 @@ class Vector {
 
   // try to comment this line and recompile
   const num& operator[](const std::size_t i) const { return elem[i]; }
+  //the const written at the beginning of the line means "this return value cannot be changed"
 };
-//the const here allows you to call only a function who has const before {}; This is because you are using your own custom type
-//in this way you can guarantee to the compiler that the variable v won't be changed by the function that you are calling
-//(in this case the operator []). That's why we used the const before the {} in the operator [] overloading 
+//the const written in:
+//std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
+//allows you to call only functions that have a const before {}; 
+//This is because you are using your own custom type
+//In this way, you can guarantee the compiler that the variable v won't be changed by the function that you are calling, in this case the operator[]. 
+//That's why we put the const before the {} in the operator[] overloading
+
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
   for (auto i = 0u; i < v.size(); ++i)
@@ -43,10 +48,10 @@ int main() {
 
   Vector<double>* pv{&v};
 
-  // first dereference the pointer, then I can use the defined operators
+  //I first have to dereference the pointer, then I can use the defined operators
   (*pv)[0] = -99.999;
 
-  pv->operator[](1) = 77777.3333;  // or I call the function by name
+  pv->operator[](1) = 77777.3333;  // or I call the function by name (orribile)
 
   std::cout << *pv << std::endl;
 

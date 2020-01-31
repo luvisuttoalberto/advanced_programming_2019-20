@@ -1,8 +1,8 @@
 #include <iostream>
 
-//N.B.: use const expressions instead of #define; in this way you can announce the type of variable. 
+//N.B.: use const expressions instead of #define; in this way you can declare the variable type. 
 //Remember the example of the exercise on the conversion of numbers: no magic numbers!
-//Also, they are both "known" at compile time so there is no computational difference
+//Also, const and #define are both "known" at compile time so there is no computational difference
 
 enum color { red, yellow, green };
 // enum color{red=0, yellow=1, green=2}; // would have been equivalent
@@ -35,7 +35,7 @@ int main() {
 
   // dwim(2); // error
   dwim(color(2));  // works but why you may want to write this?
-  //watchout: even if the following goes to the default option, doing this is dangerous
+  //watch out: even if the following goes to the default option, doing this is dangerous
   dwim(color(6));  // ???
 
   return 0;

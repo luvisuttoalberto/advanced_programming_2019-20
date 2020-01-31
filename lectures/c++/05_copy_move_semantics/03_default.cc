@@ -4,10 +4,11 @@ struct X {
   int a = 5;  // in-class initialization
   double b;
   char c = 'a';
-  //in this way we are explicitely generating a default constructor
-  //this may be useful when we want also to create a non default constructor, but we also want to have a default constructor
+
+  //in the following way we are explicitely generating a default constructor.
+  //this may be useful when we want to create a custom constructor, but we also want to have a default constructor;
   //otherwise it's not generated automatically
-  X() = default;  // in-class initializers are used by the constructors
+  X() = default;  // in-class initializers are used by the constructor (so a will be 5, c will be 'a')
 };
 
 struct Y {
@@ -27,10 +28,11 @@ int main() {
 
   Y y1;    // default ctor
   Y y2{};  // default ctor
+  //this second object, y2, will not call {} on uninitialized vars (b in this case) because we only have the custom constructor, not the default one
   std::cout << y1.a << "--" << y1.b << "--" << y1.c << "\n";
   std::cout << y2.a << "--" << y2.b << "--" << y2.c << "\n";
 
-  // Y y3{y2}; // error: call to a deleted function
+  //Y y3{y2}; // error: call to a deleted function
 
   return 0;
 }
