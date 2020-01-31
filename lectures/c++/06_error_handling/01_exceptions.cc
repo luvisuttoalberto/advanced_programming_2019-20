@@ -1,9 +1,9 @@
 #include <cmath>
 #include <iostream>
 
-// implment a square root function that "deals with" negative
-// numbers. Moreover according to the logic of the program, d should
-// never be greater than 50
+// implement a square root function that "deals with" negative numbers. 
+// Moreover according to the logic of the program, d should never be greater than 50
+
 double square_root(const double d);
 
 struct Negative_number {};
@@ -20,14 +20,11 @@ int main() {
     return 0;
   } catch (const Negative_number) {
     std::cerr << "The square root of a negative number is a complex number.\n"
-                 "square_root() is "
-              << "limited to handle positive double numbers.\n";
+              << "square_root() is limited to handle positive double numbers.\n";
     return 1;
   } catch (const Bigger_than_expected) {
-    std::cerr << "The function square_root has been called with a parameter "
-                 "greater than 50.\n"
-              << "This means there is a bug in the algorithm that generated "
-                 "this number.\n";
+    std::cerr << "The function square_root has been called with a parameter greater than 50.\n"
+              << "This means there is a bug in the algorithm that generated this number.\n";
     return 2;
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";

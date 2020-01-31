@@ -3,9 +3,8 @@
 
 #include "ap_error.h"
 
-// implement a square root function that "deals with" negative
-// numbers. Moreover according to the logic of the program, d should
-// never be greater than 50
+// implement a square root function that "deals with" negative numbers. 
+//Moreover according to the logic of the program, d should never be greater than 50
 double square_root(const double d);
 
 struct Square_root_invalid {
@@ -37,8 +36,7 @@ double square_root(const double d) {
   // test the pre-conditions
 
   AP_ERROR(d >= 0 && d <= 50, Square_root_invalid)
-      << "In our library the argument must be positive and less or equal than "
-         "50.\n";
+      << "In our library the argument must be positive and less or equal than 50.\n";
 
   // AP_ERROR(d >= 0 && d <= 50) << "In our library the argument must be
   // positive "

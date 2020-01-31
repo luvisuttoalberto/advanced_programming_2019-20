@@ -4,9 +4,8 @@
 //must be compiled with -DNDEBUG
 #include "ap_error.h"
 
-// implement a square root function that "deals with" negative
-// numbers. Moreover according to the logic of the program, d should
-// never be greater than 50
+// implement a square root function that "deals with" negative numbers. 
+// Moreover according to the logic of the program, d should never be greater than 50
 double square_root(const double d);
 
 int main() {

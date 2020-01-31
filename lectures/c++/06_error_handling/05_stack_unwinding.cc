@@ -18,7 +18,7 @@ class Bar {
 class Vector {
   double* elem;
 
- public:
+public:
   Vector(const unsigned int l) : elem{new double[l]} {
     std::cout << "Vector" << std::endl;
   }
@@ -53,18 +53,19 @@ class ManyResources {
 
 int main() {
   Foo f;
-  int* raw_ptr = new int[7];
+  int* raw_ptr = new int[7]; 
+  //the pointer must be initialized outside of the try;
+  //otherwise, it would not be visible in the catch
+
   try {
-    // to put this here would be wrong because raw_ptr would not be visible inside the catch-clause:
-    // int * raw_ptr=new int[7]; 
     ManyResources mr;
+    //this bar here is never executed: something goes wrong with the ManyResources constructor so the program is terminated before initializing the Bar
     Bar b;
 
   } catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
 
-    delete[] raw_ptr;  // <--- try to comment this and run valgrind or use the
-                       // sanitize library
+    delete[] raw_ptr;  // <--- try to comment this and run valgrind or use the sanitize library
     return 1;
 
   } catch (...) {
