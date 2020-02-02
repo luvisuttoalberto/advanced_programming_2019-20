@@ -49,15 +49,14 @@ class DangerousSnake : public Snake {
 
 class NonDangerousSnake : public Snake {
  public:
-  NonDangerousSnake(const unsigned int a, const double w)
-      : Snake{a, w, false} {}
+  NonDangerousSnake(const unsigned int a, const double w) : Snake{a, w, false} {}
   NonDangerousSnake() : Snake{false} {}
 };
 
 struct Python : public NonDangerousSnake {};
 
 using Anaconda = DangerousSnake; //using is like typedef but can be templated. (c++11). Use it, it's better
-//can also used as an alias
+//can also be used as an alias (like here)
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";
@@ -74,7 +73,7 @@ int main() {
     std::cout << std::endl;
 
     Animal* p = new Anaconda{1, 2.3};
-    // Animal* p = new DangerousSnake{1, 2.3}; //this would be the same
+    // Animal* p = new DangerousSnake{1, 2.3}; //this would be the same, Anaconda is an alias for DangerousSnake
 
     std::cout << "through pointer\n";
     p->info();

@@ -15,8 +15,12 @@ struct Animal {
 
 struct Dog {
   Animal _animal;
-  void speak() const noexcept { std::cout << "Bau\n"; }
-  void info() const noexcept { _animal.info(); }
+  void speak() const noexcept { 
+  	std::cout << "Bau\n"; 
+  }
+  void info() const noexcept { 
+  	_animal.info(); 
+  }
   Dog() noexcept : _animal{} {}
   Dog(const unsigned int a, const double d) noexcept : _animal{a, d} {}
 };
