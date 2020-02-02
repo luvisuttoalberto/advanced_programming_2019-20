@@ -25,7 +25,7 @@ class List {
     node(T&& v, node* p) : next{p}, value{std::move(v)} {
       std::cout << "move ctor" << std::endl;
     }
-    //this constructor is used in the list move constructor
+    //this constructor is used in the list copy constructor [in theory]
     //this constructor takes as input a (unique) pointer to a node
     //initiate a new node with:
     //value = the value of the given node

@@ -49,7 +49,7 @@ void print_animal(const Animal& a) noexcept { //you can pass a children to a fun
 }
 
 // compile-time (static) polymorphism
-template <class T> //NOTE THAT THIS IMPLIES THAT ALL THE [types] must be known at compile time
+template <class T> //NOTE THAT THIS IMPLIES THAT ALL THE types must be known at compile time
 void print_animal_template(const T& a) noexcept {
   std::cout << "through template\n";
   a.info();
