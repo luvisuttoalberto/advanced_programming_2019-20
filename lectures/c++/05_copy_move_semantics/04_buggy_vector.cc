@@ -40,7 +40,7 @@ class Vector {
   }
 }*/
 
-//is this what the compiler do when invoked for(auto x : v) ????
+//this is what the compiler do when invoked for(auto x : v)
 /*{
   auto it = v1.begin();
   auto stop = v1.end();

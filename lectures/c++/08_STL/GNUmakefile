@@ -1,4 +1,4 @@
-SRC = as_linked_list.cc
+SRC = linked_list.cc
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -std=c++14 -I ../../../lectures/c++/06_error_handling/

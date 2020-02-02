@@ -40,7 +40,7 @@ class Vector {
   /////////////////////////
   // move semantics
   //We can't put a const value inside this constructor: we MOVE it! The copied one is left in a vague state: you can call the destructor on it
-  //The && here means that it is an arg value: can only stay in the right size of an = sign
+  //The && here means that it is an r value: can only stay in the right size of an = sign
   //ex: a = 3; 3 can only stay on the right
   //the std::move(v._size) is just a copy //WHY IS THIS A COPY????
   //the std::move(v.elem) is not a copy!! You need to tell that (usually the && guys) are going to die, so assign
@@ -105,7 +105,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
 
 
 
-  //WHY DON'T WE USE std::copy(v.begin(), v.end(), begin()); LIKE BEFORE??????? For self-assignment vx=vx?
+  //WHY DON'T WE USE std::copy(v.begin(), v.end(), begin()); LIKE BEFORE??????? Cause otherwise we wouldn't copy also other data (like size in this case)
   
 
 
@@ -200,7 +200,7 @@ int main() {
 
   std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
   v4 = v3 + v3 + v2 + v3;
-  //same reason as before, three objects are onstructed (one for every operation; then the move assignment is called because v4 has already been constructed)
+  //same reason as before, three objects are constructed (one for every operation; then the move assignment is called because v4 has already been constructed)
   //so this will only print the 3 custom constructors and the move assignment
   
   std::cout << "v4 = " << v4;

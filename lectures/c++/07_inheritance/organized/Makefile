@@ -35,8 +35,7 @@ documentation: Doxygen/doxy.in
 
 .PHONY: documentation
 
-main.o: include/dog.h include/animal.h include/snake.h \
- include/helper_functions.h
+main.o: include/dog.h include/animal.h include/snake.h include/helper_functions.h
 
 src/animal.o: include/animal.h 
 

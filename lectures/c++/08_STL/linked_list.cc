@@ -10,30 +10,37 @@ enum class method { push_back, push_front };
 template <class T>
 class List {
   struct node {
-  	//here we can read all the data of the nesting class
-  	//why a nested struct? the user doesn't need to know the details: 
-  	//for example the implementation of a node so we put this in the 
-  	//private part of the class List
+  	//here we have access to all the data of the nesting class List
+  	//why do we implement a nested struct? 
+    //because the user doesn't need to know the details, for example the implementation of a node
+    //so we put this in the private part of the class List
     std::unique_ptr<node> next;
     T value;
-    //In the followings it makes no different to put before value or next; 
-    //the values do not depends on each other. 
-    //But the compiler gives a warning if we swap them, because it could cause an error, 
-    //so better to do it in the correct order
+    //In the following lines it makes no difference to put before "value" or "next"; the values do not depend on each other. 
+    //But the compiler gives a warning if we swap them, because it could cause an error
+    //in general it's better to do it in the correct order
     node(const T& v, node* p) : next{p}, value{v} {
       std::cout << "copy ctor" << std::endl;
     }
     node(T&& v, node* p) : next{p}, value{std::move(v)} {
       std::cout << "move ctor" << std::endl;
     }
+    //this constructor is used in the list move constructor
+    //this constructor takes as input a (unique) pointer to a node
+    //initiate a new node with:
+    //value = the value of the given node
+    //next = the pointer of the given node, using make_unique since we are using unique pointers, if there is a pointer (not nullptr)
+    //it is an iterative function if called on an existing node of a list (if it is not the last one)!!
     explicit node(const std::unique_ptr<node>& p) : value{p->value} {
-      if (p->next)
+      if (p->next){
         next = std::make_unique<node>(p->next);
+      }
     }
   };
 
   std::unique_ptr<node> head;
 
+  //probably implemented after
   template <class OT>
   void push_back(OT&& v);
 
@@ -52,15 +59,16 @@ class List {
   }
   // void push_front(T&& v);
 
+  //implemented after
   node* tail() noexcept;
 
  public:
- 	//with or without the l is the same here
+ 	//[with or without the l is the same here]
   List() noexcept = default; // default constructor
   List(List&& l) noexcept = default; // one feature of the move semantic is that they don't throw exceptions
   List& operator=(List&& l) noexcept = default;
   
-  //it would be a mistake to put noexcept here in the following, which uses the copy semantic: 
+  //it would be a mistake to put noexcept here in the following, which uses the copy semantic;
   //in general, noexcept is put in move semantic, not in copy semantic
   List(const List& l);
   List& operator=(const List& l);
@@ -69,9 +77,8 @@ class List {
   void insert(OT&& v, const method m);
 
 
-  	//friend std::ostream& operator<<(std::ostream&, const List&); would it be the same?
-  	//our function is templated so this is not good,
-	//so we do the following
+  //friend std::ostream& operator<<(std::ostream&, const List&); would be the same?
+  //our function is templated so this is not good, so we do the following
   template <class O>
   friend std::ostream& operator<<(std::ostream&, const List<O>&);
   //this function has a template down there so we need a template here too
@@ -80,7 +87,8 @@ class List {
 
 
   template <typename O>
-  class __iterator;
+  class __iterator;//class iterator implemented after
+
   using iterator = __iterator<T>; //an alias
   using const_iterator = __iterator<const T>;
 
@@ -88,15 +96,15 @@ class List {
 
   iterator begin() noexcept {return iterator{head.get()}; }
   iterator end() {return iterator{nullptr};}
+
+  //THESE TWO ARE EQUAL; WHY???
   
   const_iterator begin() const {return const_iterator{head.get()};}
   const_iterator end() const {return const_iterator{nullptr};}
   
   const_iterator cbegin() const {return const_iterator{head.get()};}
   const_iterator cend() const {return const_iterator{nullptr};}
-//finish this thing
-  friend
-  bool operator==(const __iterator& a, )
+
 };
 
 template <typename T>
@@ -112,9 +120,9 @@ public:
   using iterator_category = std::forward_iterator_tag;
   using reference = value_type&;
   using pointer = value_type*;
-  //I'm only interested to the value here!!
+  //I'm only interested in the value here!!
   reference operator*() const noexcept {return current -> value;}
-  pointer operator->() const noexcept {return &(*(*this));}
+  pointer operator->() const noexcept {return &(*(*this));} //WHY??
 
   __iterator& operator++() noexcept{ //only the pre increment
     current = current->next.get();
@@ -126,14 +134,19 @@ public:
     ++(*this);
     return tmp;
   }
+  friend bool operator==(const __iterator& a, const __iterator& b) {
+    return a.current == b.current;
+  }
+  friend bool operator!=(const __iterator& a, const __iterator& b) {
+    return !(a == b);
+  }
 
 };
 
 template <class T>
 typename List<T>::node* List<T>::tail() noexcept {
 	//notice that this function will cause segmentation fault if we call it with an empty head
-	//but there is no problem because we call this function only after controlling 
-	//if there is already a head or not
+	//but there is no problem because we call this function only after controlling if there is already a head or not
   auto tmp = head.get();
 
   while (tmp->next)
@@ -145,18 +158,18 @@ typename List<T>::node* List<T>::tail() noexcept {
 template <class T>
 template <class OT>
 void List<T>::insert(OT&& v, const method m) { // here you are going to call the move semantic (&&)
-  if (!head) {// equivalent of if(head == nullptr)
+  if (!head) {// equivalent of if(head == nullptr); this will be called only if the list is empty
     // head.reset(new node{v,nullptr});
     head = std::make_unique<node>(std::forward<OT>(v), nullptr);
     //the difference here is that the = will be the move assignment; 
     //it will call a new and pass this values: this will be shown in the next lesson
     return;
   }
+  //if the list is not empty:
   switch (m) {
     case method::push_back:
       push_back(std::forward<OT>(v));
       break;
-
     case method::push_front:
       push_front(std::forward<OT>(v));
       break;
@@ -169,9 +182,11 @@ void List<T>::insert(OT&& v, const method m) { // here you are going to call the
 template <class T>
 template <class OT>
 void List<T>::push_back(OT&& v) {
-  node* last = tail();
+  node* last = tail(); //initialize a pointer to a node that point to the last node
   // last->next.reset(new node{v, nullptr});
   last->next = std::make_unique<node>(std::forward<OT>(v), nullptr);
+  //the value of the pointer "next" of the last node becomes a pointer to another node, created now with value v and next nullptr 
+  
   //if we wrote in c++14 style the following instead:
   //last->next = std::make_unique<node>(v, nullptr);
   //it wouldn't compile. Why? We will see it when we compile. 
@@ -212,8 +227,10 @@ int main() {
 
     std::vector<int> v(3);
 
-    std::copy(l.begin(), l.end(), v.begin());
-
+    //std::copy(l.begin(), l.end(), v.begin()); //not written by sartori
+    std::copy(l.cbegin(), l.cend(), v.begin());
+    for (auto x : v)
+      std::cout << x << std::endl;
     auto ol = l;
     int a = 9;
     l.insert(14, method::push_front);

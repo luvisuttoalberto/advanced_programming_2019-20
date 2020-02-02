@@ -7,5 +7,3 @@ a doubly-linked list also has a pointer to the previous object
 26
 C says the way I will order my stuff
 (less comparison as the default)
-
-
