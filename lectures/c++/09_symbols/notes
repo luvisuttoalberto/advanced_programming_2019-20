@@ -1,8 +1,11 @@
-Given the src file, if you compile it you obtain the object file, if you link one or more objet file, you obtain the binary; if the binary has a main, it's an executable, otherwise it's a library
-Compilation is the longer proess between the two, but it can be done in parallel with a makefile (not in the command line)
+Given the src file, if you compile it you obtain the object file;
+if you link one or more object files, you obtain the binary;
+if the binary has a main, it's an executable, otherwise it's a library.
+
+Compilation is the longer process between the two, but it can be done in parallel by means of a makefile (not possible in the command line)
 
 c++ -c src/greetings.cc -I include -I another_folder_with_header -fPIC
-PIC = position independent code
+[PIC = position independent code]
 
 c++ greetings.o conclusion.o -shared -o libgreetings.so
 
@@ -14,6 +17,8 @@ target: dep1 dep2 dep3
 by convention $@ is the name of the target, $^ is the name of all the dependencies
 
 $(CXX) -fpic -D$(LANG) -o $@ -c $< -Iinclude
+
+%.o means "all the files ending with .o"
 
 $< is the first dependency; when you use % the file to be compiled is $<; take it as a rule
 
@@ -28,19 +33,14 @@ order of commands (apart from the first one) doesn't matter
 
 if you don't want makefile to echo the command (like in c++....) you put a @ before the command
 
-make -B force  recompilation
-make -j number_of_processors+1	execute  in parallel
-make -n prints the actions but don't execute them
-
-
+make -B 							force recompilation
+make -j number_of_processors+1 		execute in parallel
+make -n 							prints the actions but don't execute them
 
 need to export the LD_LIBRARY_PATH to run the executable, otherwise he can't find the shared library in this way:
 export LD_LIBRARY_PATH=../01_greetings_library:$LD_LIBRARY_PATH
 
-
-
-
-IMPORTANT NOTE:
+IMPORTANT NOTE (not inerent with this make file):
 when installing something
 when you execute ./configure always do:
 
@@ -50,5 +50,5 @@ usually
 
 LDFLAGS = -lgreetings -L $(GDIR) -Wl,-rpath,$(GDIR)
 WITH -Wl,-rpath,$(GDIR) you avoid having to specify LD_LIBRARY_PATH every time yoou have to execute an executable
-you an see something in 
+you can see something in 
 readelf -d name_of_executable | less

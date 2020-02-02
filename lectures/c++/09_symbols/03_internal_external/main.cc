@@ -1,6 +1,6 @@
 #include "constants.h"
 #include <iostream>
-
+//we could avoid writing these two lines by writing the signature of the function in the header
 double area_circle(const double); //need to be written by hand because it's not in the header
 double golden_ratio(const double);
 extern int circle_counter; //needed because I want to access the variable circle_counter

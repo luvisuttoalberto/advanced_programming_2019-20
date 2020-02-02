@@ -19,7 +19,7 @@ int main() {
   Foo::s = 77.88;
   Foo f1;
   Foo f2;
-  //of course they share the value of the static variables! so in this ase f1.s == f2.s == Foo:s
+  //of course they share the value of the static variables! so in this case f1.s == f2.s == Foo:s
   std::cout << sizeof(f1) << std::endl;
   std::cout << f1.s << '\n' << f2.s << '\n' << Foo::s << std::endl;
   return 0;
