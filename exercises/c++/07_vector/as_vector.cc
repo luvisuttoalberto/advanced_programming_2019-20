@@ -48,24 +48,25 @@ class Vector {
     return elem[i];
   }
 
-  Vector() = default; //default constructor
+  //default constructor
+  Vector() = default;
 
-  // custom ctor
+  //custom ctor
   explicit Vector(const std::size_t& lenght) : _size(lenght), elem{new T[lenght]{}}, _capacity{lenght} {}
 
   void reserve(const std::size_t new_size) {
     if (_capacity < new_size) {
-      T* new_array = new T[new_size]; //create a new intermediate array
+      T* new_array = new T[new_size]; //create a new array
 
       for (std::size_t i = 0; i < _size; ++i){
-        new_array[i] = std::move(elem[i]);//move all the elements of the old array to the new array
+        new_array[i] = std::move(elem[i]); //move all the elements of the old array to the new array
       }
 
-      elem.reset(new_array);//reset the unique pointer pointing now to the new array, freeing the memory occupied by the old array
-      _capacity = new_size;
+      elem.reset(new_array);//reset the unique pointer, pointing it to the new array, freeing the memory occupied by the old array
+      _capacity = new_size; //update the capacity of the array
     }
   }
-
+  //Could this be a version of the push back that included both the copy and the move semantic? [yes?]
   /* template <typename OT>
    void push_back(OT&& x){
      check_and_increase_capacity();
@@ -99,8 +100,7 @@ class Vector {
 //Vector version of the operator<< overloading
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vector<T>& x) {
-  os << "size " << x.size() << "\n"
-     << "capacity " << x.capacity() << "\n";
+  os << "size " << x.size() << "\n" << "capacity " << x.capacity() << "\n";
   for (std::size_t i = 0; i < x.size(); ++i){
     os << x[i] << " ";
   }
@@ -112,16 +112,16 @@ std::ostream& operator<<(std::ostream& os, const Vector<T>& x) {
 //std::vector version of the operator<< overloading
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& x) {
-  os << "size " << x.size() << "\n"
-     << "capacity " << x.capacity() << "\n";
-  for (std::size_t i = 0; i < x.size(); ++i)
+  os << "size " << x.size() << "\n" << "capacity " << x.capacity() << "\n";
+  for (std::size_t i = 0; i < x.size(); ++i){
     os << x[i] << " ";
+  }
 
   os << std::endl;
 
   return os;
 }
-//why do we have two different versions?
+//why do we have two different versions? Because we have two different structs!!
 
 struct Date {
   int d, m, y;
@@ -136,7 +136,8 @@ std::ostream& operator<<(std::ostream& os, const Date& x) {
 
 int main() {
   Vector<Date> v;
-  //std::vector<Date> v;
+  //std::vector<Date> v; //if we uncomment this and comment the previous one the only unseen prints are the 8 "default ctor" due to the resize of the vector. 
+  //Of course! We didn't implement the resize of the class std::vector
   std::cout << v << std::endl;
   Date x{1, 2, 3}; //print custom ctor
   v.push_back(x);  // const T&
