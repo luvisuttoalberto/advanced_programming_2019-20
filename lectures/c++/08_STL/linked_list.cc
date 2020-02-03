@@ -231,10 +231,10 @@ int main() {
     std::copy(l.cbegin(), l.cend(), v.begin());
     for (auto x : v)
       std::cout << x << std::endl;
-    auto ol = l;
+    //auto ol = l;
     int a = 9;
-    l.insert(14, method::push_front);
-    l.insert(a, method::push_front);
+    l.insert(14, method::push_front);//this will call the move ctor because 14 is an rvalue (thanks to std::forward)
+    l.insert(a, method::push_front);//this will call the move ctor because a is an lvalue (thanks to std::forward)
 
     std::cout << l << std::endl;
     std::cout << ol << std::endl;

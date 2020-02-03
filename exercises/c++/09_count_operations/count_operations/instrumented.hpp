@@ -37,7 +37,9 @@ struct instrumented : instrumented_base {
   T value;
   // Conversions from T and to T:
   instrumented(const T& x) : value(x) {}
-  explicit operator T() const { return value; } //this lets you construct an instrumented integer from an int, like we do in int{v[i]} +....
+  explicit operator T() const {//this lets you construct an instrumented integer from an int, like we do in int{v[i]} +.... 
+    return value; 
+  }
 
   template <typename U>
   instrumented(const instrumented<U>& x) : value(x.value) {}
@@ -74,7 +76,7 @@ struct instrumented : instrumented_base {
     return x.value < y.value;
   }
   friend bool operator>(const instrumented& x, const instrumented& y) {
-    return y < x;
+    return y < x;//why don't we use 
   }
   friend bool operator<=(const instrumented& x, const instrumented& y) {
     return !(y < x);
