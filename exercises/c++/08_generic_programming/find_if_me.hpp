@@ -4,8 +4,8 @@
 
 //requires I is Iterator
 //*I is of type T
-	//Here i return and Iterator (sort of a pointer)
-	//it makes sense to return a pointer when I search for something; do it!
+//Here i return and Iterator (sort of a pointer)
+//it makes sense to return a pointer when I search for something; do it!
 
 template <typename I, typename T>
 I find_if_hardcoded(I first, const I last, const T& value){ 
@@ -40,7 +40,7 @@ struct predicate_base{
 };
 
 
-	//I find_if_template(I first, const I last, bool (*func)(const T&) )
+//I find_if_template(I first, const I last, bool (*func)(const T&) )
 //requires I is an Iterator
 //*I is compatible with predicate
 template <typename I, typename T>

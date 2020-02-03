@@ -4,14 +4,15 @@
 #include <iomanip>
 #include <iostream>
 
-template <typename Clock = std::chrono::steady_clock,
-          typename Duration = typename Clock::duration>
+template <typename Clock = std::chrono::steady_clock, typename Duration = typename Clock::duration>
 class timer {
   using time_point = std::chrono::time_point<Clock, Duration>;
   time_point t0;
 
  public:
-  void start() { t0 = Clock::now(); }
+  void start() { 
+    t0 = Clock::now(); 
+  }
   void stop() {
     time_point t1 = Clock::now();
     std::cout << std::setw(15)

@@ -7,7 +7,7 @@
 #include <vector>
 
 //do we implement a class or a struct? and why?
-//a struct has default visibility as public, a class private. 
+//a struct has default visibility as public, in a class the default is private. 
 //What should we keep secret?
 //for example, if you have some members that represents the state of the object, they must be private.
 //so this will be a class, to keep some things private.
@@ -126,7 +126,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& x) {
 struct Date {
   int d, m, y;
   Date() { std::cout << "default ctor" << std::endl; }
-  Date(int d, int m, int y) : d{d}, m{m}, y{y} {}
+  Date(int d, int m, int y) : d{d}, m{m}, y{y} {std::cout << "custom ctor" << std::endl;}
 };
 
 std::ostream& operator<<(std::ostream& os, const Date& x) {
@@ -138,15 +138,13 @@ int main() {
   Vector<Date> v;
   //std::vector<Date> v;
   std::cout << v << std::endl;
-  Date x{1, 2, 3};
+  Date x{1, 2, 3}; //print custom ctor
   v.push_back(x);  // const T&
+  //in the previous line we print "default ctor" 8 times because we initialize 8 objects of type Date in the vector
+  v.push_back(Date{5,5,6});//print custom ctor
 
-  v.push_back(Date{5,5,6}); // if we comment this the number of called default contructor doesn't change. Why?
-
-  v.emplace_back(4, 5, 6);
-  v.emplace_back();
-//check why we have the elements written like this
-  //in general, why do we call the default constructor 9 times?
+  v.emplace_back(4, 5, 6);//print custom ctor
+  v.emplace_back();//print default ctor
   std::cout << v << std::endl;
 
   return 0;

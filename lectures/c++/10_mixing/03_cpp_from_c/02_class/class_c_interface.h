@@ -3,7 +3,8 @@
 
 typedef void* Foo_c;
 //the following lines are needed because we are going to compile c-main with a c compiler, that doesn't know what extern "C" is!! 
-#ifdef __cplusplus //this macro is recognized by the preprocessor; if the preprocessor is c++ he will keep these lines, otherwise it doesn't have this macro defined and it will not keep these lines
+#ifdef __cplusplus //this macro is recognized by the preprocessor; 
+//if the preprocessor is c++ he will keep these lines, otherwise it doesn't have this macro defined and it will not keep these lines
 extern "C" {
 #endif
 
