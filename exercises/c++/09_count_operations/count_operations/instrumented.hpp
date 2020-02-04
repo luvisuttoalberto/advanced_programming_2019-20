@@ -76,7 +76,7 @@ struct instrumented : instrumented_base {
     return x.value < y.value;
   }
   friend bool operator>(const instrumented& x, const instrumented& y) {
-    return y < x;//why don't we use 
+    return y < x; // this uses the already overloaded operator <
   }
   friend bool operator<=(const instrumented& x, const instrumented& y) {
     return !(y < x);

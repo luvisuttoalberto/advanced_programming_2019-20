@@ -81,6 +81,7 @@ class List {
   //our function is templated so this is not good, so we do the following
   template <class O>
   friend std::ostream& operator<<(std::ostream&, const List<O>&);
+  //this friend is needed because the operator<< needs to access to the private value of the nested class Node
   //this function has a template down there so we need a template here too
   //and you can't use the T because it would get in conflict with before used template
   //that's why we use the O instead of the T here
@@ -134,6 +135,7 @@ public:
     ++(*this);
     return tmp;
   }
+  //these following "friend" are needed to access the private values of the class List
   friend bool operator==(const __iterator& a, const __iterator& b) {
     return a.current == b.current;
   }
