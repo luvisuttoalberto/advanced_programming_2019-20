@@ -49,6 +49,6 @@ usually
 ./configure --prefix=/opt/firefox-numberofversion
 
 LDFLAGS = -lgreetings -L $(GDIR) -Wl,-rpath,$(GDIR)
-WITH -Wl,-rpath,$(GDIR) you avoid having to specify LD_LIBRARY_PATH every time yoou have to execute an executable
+WITH -Wl,-rpath,$(GDIR) you avoid having to specify LD_LIBRARY_PATH every time you have to execute an executable
 you can see something in 
 readelf -d name_of_executable | less
