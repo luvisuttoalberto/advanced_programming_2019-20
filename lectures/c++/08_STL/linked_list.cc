@@ -123,7 +123,7 @@ public:
   using pointer = value_type*;
   //I'm only interested in the value here!!
   reference operator*() const noexcept {return current -> value;}
-  pointer operator->() const noexcept {return &(*(*this));} //WHY??
+  pointer operator->() const noexcept {return &(*(*this));}
 
   __iterator& operator++() noexcept{ //only the pre increment
     current = current->next.get();
