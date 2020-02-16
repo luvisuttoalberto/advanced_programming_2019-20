@@ -19,10 +19,10 @@ class List {
     //In the following lines it makes no difference to put before "value" or "next"; the values do not depend on each other. 
     //But the compiler gives a warning if we swap them, because it could cause an error
     //in general it's better to do it in the correct order
-    node(const T& v, node* p) : next{p}, value{v} {
+    node(const T& v, node* p) : value{v}, next{p} {
       std::cout << "copy ctor" << std::endl;
     }
-    node(T&& v, node* p) : next{p}, value{std::move(v)} {
+    node(T&& v, node* p) : value{std::move(v)}, next{p} {
       std::cout << "move ctor" << std::endl;
     }
     //this constructor is used in the list copy constructor [in theory]
@@ -159,7 +159,7 @@ typename List<T>::node* List<T>::tail() noexcept {
 
 template <class T>
 template <class OT>
-void List<T>::insert(OT&& v, const method m) { // here you are going to call the move semantic (&&)
+void List<T>::insert(OT&& v, const method m) {
   if (!head) {// equivalent of if(head == nullptr); this will be called only if the list is empty
     // head.reset(new node{v,nullptr});
     head = std::make_unique<node>(std::forward<OT>(v), nullptr);
@@ -236,10 +236,10 @@ int main() {
     //auto ol = l;
     int a = 9;
     l.insert(14, method::push_front);//this will call the move ctor because 14 is an rvalue (thanks to std::forward)
-    l.insert(a, method::push_front);//this will call the move ctor because a is an lvalue (thanks to std::forward)
+    l.insert(a, method::push_front);//this will call the copy ctor because a is an lvalue (thanks to std::forward)
 
     std::cout << l << std::endl;
-    std::cout << ol << std::endl;
+    //std::cout << ol << std::endl;
 
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
