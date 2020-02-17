@@ -14,7 +14,6 @@ static int add_abs(const int v1, const int v2) {
 
 int main() {
   int val5 = 20;
-  printf("%d / %d / %d / %d\n", add_abs(val1, val2), add_abs(val3, val4),
-         add_abs(val1, val5), errno);
+  printf("%d / %d / %d / %d\n", add_abs(val1, val2), add_abs(val3, val4), add_abs(val1, val5), errno);
   return 0;
 }
