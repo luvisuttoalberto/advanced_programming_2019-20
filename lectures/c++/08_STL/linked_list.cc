@@ -40,7 +40,7 @@ class List {
 
   std::unique_ptr<node> head;
 
-  //probably implemented after
+  //implemented after
   template <class OT>
   void push_back(OT&& v);
 
@@ -97,8 +97,6 @@ class List {
 
   iterator begin() noexcept {return iterator{head.get()}; }
   iterator end() {return iterator{nullptr};}
-
-  //THESE TWO ARE EQUAL; WHY???
   
   const_iterator begin() const {return const_iterator{head.get()};}
   const_iterator end() const {return const_iterator{nullptr};}
@@ -191,8 +189,7 @@ void List<T>::push_back(OT&& v) {
   
   //if we wrote in c++14 style the following instead:
   //last->next = std::make_unique<node>(v, nullptr);
-  //it wouldn't compile. Why? We will see it when we compile. 
-  //Thanks to the dick (Edo questa è per te)
+  //it wouldn't compile. Why? We will see it when we compile.
 }
 
 template <class T>

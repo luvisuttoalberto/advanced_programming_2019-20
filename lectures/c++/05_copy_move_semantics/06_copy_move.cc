@@ -130,7 +130,7 @@ Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) {
     res[i] = lhs[i] + rhs[i];
 
   return res;
-}//We need to return the result by value in this case!! So we [DON'T???] put it in the heap and we return it
+}//We need to return the result by value in this case!! So we put it in the heap and we return it
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
